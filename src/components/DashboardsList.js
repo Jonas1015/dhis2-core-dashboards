@@ -21,7 +21,7 @@ function DashboardsList({ dashboards, title }) {
   const [openedDashboard, setOpenedDashboard] = React.useState(null);
 
   const handleExansion = (dashboard) => (event, isExpanded) => {
-    setExpanded(dashboard?.id === dashboards[0]?.id ? dashboard : isExpanded ? dashboard : dashboards[0]);
+    setExpanded(isExpanded ? dashboard : false);
     setOpenedDashboard(dashboard)
   };
 
@@ -69,59 +69,61 @@ function DashboardsList({ dashboards, title }) {
   return (
     <div className='container'>
         <div className="row mt-5 pt-5">
-                <div className="col-10">
-                    {title}
-                </div>
-                <div className="col-2">
-                    <Box sx={{ minWidth: 120 }}>
-                        <FormControl fullWidth>
-                            <InputLabel id="select-filter-label">Filter Items</InputLabel>
-                            <Select
-                                labelId="select-filter"
-                                id="select-filter"
-                                value={filter}
-                                label="Filter"
-                                onChange={handleFilter}
-                            >
-                              <MenuItem value=''>ALL</MenuItem>
-                            {filters?.map((filter) => (
-                                <MenuItem value={filter} key={filter}>{filter}</MenuItem>
-                            ))}
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </div>
-            </div>
-            <hr />
-        {dashboards?.map((dashboard) => (
-          <Accordion expanded={expanded?.id === dashboard?.id || (!expanded && dashboards[0]?.id === dashboard?.id)} onChange={handleExansion(dashboard)} key={dashboard.id}>
-              <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls={dashboard?.id}
-              id={dashboard?.id}
-              >
-                <Typography>
-                    {dashboard?.displayName}
-                </Typography>
-                <span className="accordion-star-icon" onClick={() => handleStar(dashboard)}>
-                  { starredDashboards[dashboard?.id] ? (
-                      <Typography>
-                        <StarRateRoundedIcon /> 
-                      </Typography>
-                    ) : (
-                      <Typography>
-                        <StarBorderRoundedIcon /> 
-                      </Typography>
-                    )}
-                    
-                    
-                </span>
-              </AccordionSummary>
-              <AccordionDetails>
-                      {openedDashboard && (<DashboardItems dashboardDetails={openedDashboard} selectedFilter={filter} handleFilter={handleFilter} />)}
-              </AccordionDetails>
-          </Accordion>
-        ))}
+          <div className="col-10">
+              {title}
+          </div>
+          <div className="col-2">
+              <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                      <InputLabel id="select-filter-label">Filter Items</InputLabel>
+                      <Select
+                          labelId="select-filter"
+                          id="select-filter"
+                          value={filter}
+                          label="Filter"
+                          onChange={handleFilter}
+                      >
+                        <MenuItem value=''>ALL</MenuItem>
+                      {filters?.map((filter) => (
+                          <MenuItem value={filter} key={filter}>{filter}</MenuItem>
+                      ))}
+                      </Select>
+                  </FormControl>
+              </Box>
+          </div>
+        </div>
+        <hr />
+        <div className="row mt-3">
+          {dashboards?.map((dashboard) => (
+            <Accordion expanded={expanded?.id === dashboard?.id} onChange={handleExansion(dashboard)} key={dashboard.id}>
+                <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={dashboard?.id}
+                id={dashboard?.id}
+                >
+                  <Typography>
+                      {dashboard?.displayName}
+                  </Typography>
+                  <span className="accordion-star-icon" onClick={() => handleStar(dashboard)}>
+                    { starredDashboards[dashboard?.id] ? (
+                        <Typography>
+                          <StarRateRoundedIcon /> 
+                        </Typography>
+                      ) : (
+                        <Typography>
+                          <StarBorderRoundedIcon /> 
+                        </Typography>
+                      )}
+                      
+                      
+                  </span>
+                </AccordionSummary>
+                <AccordionDetails>
+                        {openedDashboard && (<DashboardItems dashboardDetails={openedDashboard} />)}
+                </AccordionDetails>
+            </Accordion>
+          ))}
+        </div>
     </div>
   )
 }

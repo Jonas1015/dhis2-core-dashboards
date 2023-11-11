@@ -9,7 +9,7 @@ import StackedBarChartRoundedIcon from '@mui/icons-material/StackedBarChartRound
 import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 
-function DashboardItems({ dashboardDetails, selectedFilter, handleFilter }){
+function DashboardItems({ dashboardDetails }){
 
 
     return (
