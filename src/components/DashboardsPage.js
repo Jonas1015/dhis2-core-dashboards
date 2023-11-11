@@ -11,11 +11,12 @@ export default function DashboardPage() {
     React.useEffect(() => {
         get_dashboards()
         .then(result => {
-            let starredDashboards = JSON.parse(localStorage.getItem("starredDashboards")) || ""
+            let starredDashboards = JSON.parse(localStorage.getItem("starredDashboards")) || {}
+            const dashboardsIds = Object.keys(starredDashboards)
             result?.dashboards?.forEach((dashboard) => {
                 starredDashboards = {
                     ...starredDashboards,
-                    [dashboard?.id]: starredDashboards[dashboard?.id]
+                    [dashboard?.id]: dashboardsIds?.includes(dashboard?.id) ? starredDashboards[dashboard?.id] : dashboard?.starred
                 }
             })
             localStorage.setItem('starredDashboards', JSON.stringify(starredDashboards))
