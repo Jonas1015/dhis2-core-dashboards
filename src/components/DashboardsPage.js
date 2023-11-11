@@ -3,7 +3,7 @@ import DashboardsList from './DashboardsList';
 import { get_dashboards } from '../services/dashboards.services';
 
 
-export default function ControlledAccordions() {
+export default function DashboardPage() {
     const [title] = React.useState("Dashboards")
 
     const [dashboards, setDashboards] = React.useState(null)

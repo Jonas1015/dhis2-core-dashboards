@@ -68,12 +68,12 @@ function DashboardsList({ dashboards, title }) {
 
   return (
     <div className='container'>
-        <div className="row mt-5 pt-5">
-          <div className="col-10">
+        <div className="row dashboards-header mt-5 pt-5">
+          <div className="col-md-8 col-lg-9 col-sm-6 col-xm-4 title">
               {title}
           </div>
-          <div className="col-2">
-              <Box sx={{ minWidth: 120 }}>
+          <div className="col-md-4 col-lg-3 col-sm-6 col-xm-8 filter-field">
+              <Box>
                   <FormControl fullWidth>
                       <InputLabel id="select-filter-label">Filter Items</InputLabel>
                       <Select
@@ -92,7 +92,6 @@ function DashboardsList({ dashboards, title }) {
               </Box>
           </div>
         </div>
-        <hr />
         <div className="row mt-3">
           {dashboards?.map((dashboard) => (
             <Accordion expanded={expanded?.id === dashboard?.id} onChange={handleExansion(dashboard)} key={dashboard.id}>
