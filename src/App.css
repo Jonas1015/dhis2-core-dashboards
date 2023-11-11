@@ -3,6 +3,12 @@
   margin-left: 90%;
 }
 
+.dashboardItem-icon {
+  position: relative;
+  bottom: 3px;
+  margin-right: 10px; 
+}
+
 @media (max-width: 1024px) {
   .accordion-star-icon {
       margin-left: 85%;
