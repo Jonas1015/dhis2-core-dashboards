@@ -16,12 +16,12 @@ import DashboardItems from './DashboardItems';
 import { get_dashboard_items } from '../services/dashboards.services';
 
 function DashboardsList({ dashboards, title }) {
-
+  
   const [expanded, setExpanded] = React.useState(dashboards[0]);
   const [openedDashboard, setOpenedDashboard] = React.useState(null);
 
   const handleExansion = (dashboard) => (event, isExpanded) => {
-    setExpanded(isExpanded ? dashboard : false);
+    setExpanded(dashboard?.id === dashboards[0]?.id ? dashboard : isExpanded ? dashboard : dashboards[0]);
     setOpenedDashboard(dashboard)
   };
 
@@ -38,12 +38,12 @@ function DashboardsList({ dashboards, title }) {
       localStorage.setItem('filter', event.target.value);
   };
 
-  const [starredDashboards, setStarredDashboards] = React.useState(JSON.parse(localStorage.getItem('starredDashboards')) || {})
+  const [starredDashboards, setStarredDashboards] = React.useState(JSON.parse(localStorage.getItem('starredDashboards')) || "{}")
   const handleStar = (dashboard) => {
     let starredDashboards = JSON.parse(localStorage.getItem('starredDashboards'));
     starredDashboards = {
         ...starredDashboards,
-        [dashboard?.id]: true
+        [dashboard?.id]: !starredDashboards[dashboard?.id] ? true : false
       }
     localStorage.setItem('starredDashboards', JSON.stringify(starredDashboards))
     setStarredDashboards(starredDashboards)
@@ -104,7 +104,7 @@ function DashboardsList({ dashboards, title }) {
                     {dashboard?.displayName}
                 </Typography>
                 <span className="accordion-star-icon" onClick={() => handleStar(dashboard)}>
-                  { dashboard?.starred || starredDashboards[dashboard?.id] ? (
+                  { starredDashboards[dashboard?.id] ? (
                       <Typography>
                         <StarRateRoundedIcon /> 
                       </Typography>

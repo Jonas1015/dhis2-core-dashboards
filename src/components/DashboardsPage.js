@@ -11,6 +11,14 @@ export default function ControlledAccordions() {
     React.useEffect(() => {
         get_dashboards()
         .then(result => {
+            let starredDashboards = JSON.parse(localStorage.getItem("starredDashboards")) || ""
+            result?.dashboards?.forEach((dashboard) => {
+                starredDashboards = {
+                    ...starredDashboards,
+                    [dashboard?.id]: starredDashboards[dashboard?.id]
+                }
+            })
+            localStorage.setItem('starredDashboards', JSON.stringify(starredDashboards))
             setDashboards(result?.dashboards);
         })
         .catch(error => {
