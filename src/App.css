@@ -9,6 +9,10 @@
   margin-right: 10px; 
 }
 
+.accordion-star-icon:hover{
+  cursor: pointer;
+} 
+
 @media (max-width: 1024px) {
   .accordion-star-icon {
       margin-left: 85%;

@@ -31,12 +31,23 @@ function DashboardsList({ dashboards, title }) {
         'TEXT'
     ])
 
-  const [filter, setFilter] = React.useState(null);
+  const [filter, setFilter] = React.useState(localStorage.getItem('filter') || '');
 
   const handleFilter = (event) => {
       setFilter(event.target.value);
       localStorage.setItem('filter', event.target.value);
   };
+
+  const [starredDashboards, setStarredDashboards] = React.useState(JSON.parse(localStorage.getItem('starredDashboards')) || {})
+  const handleStar = (dashboard) => {
+    let starredDashboards = JSON.parse(localStorage.getItem('starredDashboards'));
+    starredDashboards = {
+        ...starredDashboards,
+        [dashboard?.id]: true
+      }
+    localStorage.setItem('starredDashboards', JSON.stringify(starredDashboards))
+    setStarredDashboards(starredDashboards)
+  }
 
   React.useEffect(() =>{
         if(expanded){
@@ -72,7 +83,7 @@ function DashboardsList({ dashboards, title }) {
                                 label="Filter"
                                 onChange={handleFilter}
                             >
-                              {/* <MenuItem value=''>ALL</MenuItem> */}
+                              <MenuItem value=''>ALL</MenuItem>
                             {filters?.map((filter) => (
                                 <MenuItem value={filter} key={filter}>{filter}</MenuItem>
                             ))}
@@ -92,8 +103,8 @@ function DashboardsList({ dashboards, title }) {
                 <Typography>
                     {dashboard?.displayName}
                 </Typography>
-                <span className="accordion-star-icon">
-                  { dashboard?.starred ? (
+                <span className="accordion-star-icon" onClick={() => handleStar(dashboard)}>
+                  { dashboard?.starred || starredDashboards[dashboard?.id] ? (
                       <Typography>
                         <StarRateRoundedIcon /> 
                       </Typography>
