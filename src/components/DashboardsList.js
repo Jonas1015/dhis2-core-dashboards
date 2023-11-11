@@ -41,14 +41,19 @@ function DashboardsList({ dashboards, title }) {
   React.useEffect(() =>{
         if(expanded){
             get_dashboard_items(expanded?.id)
-            .then(result => {       
-                setOpenedDashboard(result);
+            .then(result => {    
+                setOpenedDashboard(filter ?{
+                  ...result,
+                  dashboardItems: [
+                    ...result?.dashboardItems?.filter((dashboardItem) => dashboardItem?.type === filter)
+                  ]
+                } : result );
             })
             .catch(error => {
                 console.error(error);
             })
         }
-    }, [expanded])
+    }, [expanded, filter])
 
   return (
     <div className='container'>
