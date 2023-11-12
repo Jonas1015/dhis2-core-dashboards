@@ -1,5 +1,6 @@
 import * as React from 'react';
 import TextSnippetRoundedIcon from '@mui/icons-material/TextSnippetRounded';
+import './DashboardItems.css'
 import AssessmentRoundedIcon from '@mui/icons-material/AssessmentRounded';
 import StackedLineChartRoundedIcon from '@mui/icons-material/StackedLineChartRounded';
 import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRounded';
@@ -11,10 +12,9 @@ import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 
 function DashboardItems({ dashboardDetails }){
 
-
     return (
         <div>
-            {dashboardDetails ? (
+            {dashboardDetails?.dashboardItems?.length > 0 ? (
                 dashboardDetails?.dashboardItems?.map((dashboardItem) => (
                     <div key={dashboardItem.id}>
                         <div className='d-flex mt-1'>
@@ -35,7 +35,7 @@ function DashboardItems({ dashboardDetails }){
                             </p>
                         </div>
                     </div>
-                ))) : (<div>Loading ...</div>)}
+                ))) : (<p className="text-center">No dashboard items to display</p>)}
         </div>
     )
 }

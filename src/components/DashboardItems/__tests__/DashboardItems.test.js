@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import DashboardsList from './DashboardsList'; // Path to your DashboardsList component
+import DashboardsList from '../DashboardsList'; 
 
 describe('DashboardsList Component', () => {
     const dashboards =  [
@@ -18,7 +18,7 @@ describe('DashboardsList Component', () => {
     it('Renders with provided props', (dashboards) => {
         const mockDashboards = dashboards   ;
 
-        const mockTitle = 'Test Dahboards';
+        const mockTitle = 'Test Dashboards';
 
         render(<DashboardsList dashboards={mockDashboards} title={mockTitle} />);
 

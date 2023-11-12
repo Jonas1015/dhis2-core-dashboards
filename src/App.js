@@ -1,5 +1,5 @@
 import './App.css';
-import DashboardsPage from './components/DashboardsPage';
+import DashboardsPage from './components/DashboardsPage/DashboardsPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {

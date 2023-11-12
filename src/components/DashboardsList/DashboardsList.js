@@ -1,3 +1,4 @@
+import './DashboardsList.css'
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -11,14 +12,15 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import DashboardItems from './DashboardItems';
+import DashboardItems from '../DashboardItems/DashboardItems';
 
-import { get_dashboard_items } from '../services/dashboards.services';
+import { get_dashboard_items } from '../../services/dashboards.services';
 
 function DashboardsList({ dashboards, title }) {
   
   const [expanded, setExpanded] = React.useState(dashboards[0]);
   const [openedDashboard, setOpenedDashboard] = React.useState(null);
+  const [loadingDashboardItems, setLoadingDashboardItems] = React.useState(true);
 
   const handleExansion = (dashboard) => (event, isExpanded) => {
     setExpanded(isExpanded ? dashboard : false);
@@ -51,6 +53,7 @@ function DashboardsList({ dashboards, title }) {
 
   React.useEffect(() =>{
         if(expanded){
+            setLoadingDashboardItems(true)
             get_dashboard_items(expanded?.id)
             .then(result => {    
                 setOpenedDashboard(filter ?{
@@ -59,6 +62,7 @@ function DashboardsList({ dashboards, title }) {
                     ...result?.dashboardItems?.filter((dashboardItem) => dashboardItem?.type === filter)
                   ]
                 } : result );
+                setLoadingDashboardItems(false)
             })
             .catch(error => {
                 console.error(error);
@@ -118,7 +122,8 @@ function DashboardsList({ dashboards, title }) {
                   </span>
                 </AccordionSummary>
                 <AccordionDetails>
-                        {openedDashboard && (<DashboardItems dashboardDetails={openedDashboard} />)}
+                        {loadingDashboardItems && <p className="text-center">loading dashboard items ...</p>}
+                        {!loadingDashboardItems && <DashboardItems dashboardDetails={openedDashboard} />}
                 </AccordionDetails>
             </Accordion>
           ))}

@@ -1,0 +1,51 @@
+.dashboards-header {
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #3e4b4b;
+}
+
+.accordion-star-icon {
+    position: absolute;
+    margin-left: 90%;
+}
+
+.accordion-star-icon:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    .accordion-star-icon {
+        margin-left: 85%;
+    }
+}
+
+@media (max-width: 768px) {
+    .accordion-star-icon {
+        margin-left: 80%;
+    }
+
+    .dashboards-header {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .accordion-star-icon {
+        margin-left: 75%;
+    }
+
+    .dashboards-header {
+        width: 100%;
+    }
+}
+
+@media (max-width: 369px) {
+    .accordion-star-icon {
+        margin-left: 70%;
+    }
+    
+    .dashboards-header {
+        width: 100%;
+    }
+}
