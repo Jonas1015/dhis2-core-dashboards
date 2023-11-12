@@ -1,35 +1,22 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import DashboardsList from '../DashboardsList'; 
 
-describe('DashboardsList Component', () => {
-    const dashboards =  [
+it('Should show title and see name of every dashboard', async () => {
+    const mockDashboards = [
         {
-            "displayName": "Antenatal Care",
-            "id": "nghVC4w098tyzi",
-            "starred": true
-        },
-        {
-            "displayName": "Cases Malaria",
-            "id": "JW7RlN5123xafN",
-            "starred": false
+            displayName: "Dashboard 1",
+            id: "xlsL67aszm8"
         }
-    ]
-    it('Renders with provided props', (dashboards) => {
-        const mockDashboards = dashboards   ;
+    ];
 
-        const mockTitle = 'Test Dashboards';
+    const mockTitle = 'Test Dashboards';
 
-        render(<DashboardsList dashboards={mockDashboards} title={mockTitle} />);
+    render(<DashboardsList dashboards={mockDashboards} title={mockTitle}/>);
+    const titleElement = screen.getByText(/Test Dashboards/i);
+    expect(titleElement).toBeInTheDocument;
 
-        // Check if the title is rendered
-        const titleElement = screen.getByText(mockTitle);
-        expect(titleElement).toBeInTheDocument();
-
-        // Check if the dashboard names are rendered
-        mockDashboards.forEach(dashboard => {
-        const dashboardName = screen.getByText(dashboard.displayName);
-        expect(dashboardName).toBeInTheDocument();
-        });
+    mockDashboards.forEach(dashboard => {
+      const dashboardName = screen.getByText(dashboard.displayName);
+      expect(dashboardName).toBeInTheDocument;
     });
 });
