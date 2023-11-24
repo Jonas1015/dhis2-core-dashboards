@@ -83,6 +83,7 @@ function DashboardsList({ dashboards, title }) {
                       <Select
                           labelId="select-filter"
                           id="select-filter"
+                          data-testId="filter"
                           value={filter}
                           label="Filter"
                           onChange={handleFilter}
