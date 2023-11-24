@@ -11,6 +11,20 @@ import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 import { Dashboard, DashboardItem, Other } from '../../utils/dashboard.types';
 
+
+const dashboardItemIconMapping: Record<string, React.ReactElement> = {
+  PIE: (<PieChartOutlineRoundedIcon />),
+  PIVOT_TABLE: (<PivotTableChartRoundedIcon />),
+  COLUMN: (<LeaderboardRoundedIcon />),
+  YEAR_OVER_YEAR_LINE: (<StackedLineChartRoundedIcon />),
+  LINE: (<TimelineRoundedIcon />),
+  STACKED_COLUMN: (<StackedBarChartRoundedIcon />),
+  VISUALIZATION: (<AssessmentRoundedIcon />),
+  MAP: (<PublicRoundedIcon />),
+  TEXT: (<TextSnippetRoundedIcon />),
+};
+
+
 function DashboardItems(props: { dashboardDetails: Dashboard }){
 
     return (
@@ -20,17 +34,7 @@ function DashboardItems(props: { dashboardDetails: Dashboard }){
                     <div key={dashboardItem.id}>
                         <div className='d-flex mt-1'>
                             <p className='dashboardItem-icon'>
-                               {
-                                (dashboardItem[dashboardItem?.type?.toLowerCase()] as Other)?.type === 'PIE' ? (<PieChartOutlineRoundedIcon />) : 
-                                (dashboardItem[dashboardItem?.type?.toLowerCase()] as Other)?.type === 'PIVOT_TABLE' ? (<PivotTableChartRoundedIcon />) : 
-                                (dashboardItem[dashboardItem?.type?.toLowerCase()] as Other)?.type === 'COLUMN' ? (<LeaderboardRoundedIcon />) : 
-                                (dashboardItem[dashboardItem?.type?.toLowerCase()] as Other)?.type === 'YEAR_OVER_YEAR_LINE' ? (<StackedLineChartRoundedIcon />) : 
-                                (dashboardItem[dashboardItem?.type?.toLowerCase()] as Other)?.type === 'LINE' ? (<TimelineRoundedIcon />) : 
-                                (dashboardItem[dashboardItem?.type?.toLowerCase()] as Other)?.type === 'STACKED_COLUMN' ? (<StackedBarChartRoundedIcon />) : 
-                                dashboardItem?.type === 'VISUALIZATION' ? (<AssessmentRoundedIcon />) : 
-                                dashboardItem?.type === 'MAP' ? (<PublicRoundedIcon />) : 
-                                dashboardItem?.type === 'TEXT' ? (<TextSnippetRoundedIcon />) : ("")
-                               } 
+                                { (dashboardItem[dashboardItem?.type?.toLowerCase()] as Other)?.type in dashboardItemIconMapping ? dashboardItemIconMapping[(dashboardItem[dashboardItem?.type?.toLowerCase()] as Other)?.type] : dashboardItemIconMapping[dashboardItem?.type]}
                             </p>
                             <p>
                                 {(dashboardItem[dashboardItem?.type?.toLowerCase()] as Other)?.name  || dashboardItem[dashboardItem?.type?.toLowerCase()] as string}

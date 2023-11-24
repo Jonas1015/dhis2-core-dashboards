@@ -1,11 +1,11 @@
-import './DashboardsPage.css'
+import './LoadDashboards.css'
 import * as React from 'react';
-import DashboardsList from '../DashboardsList/DashboardsList';
+import DashboardsList from '../Dashboards/Dashboards';
 import { get_dashboards } from '../../services/dashboards.services';
 import { Dashboard } from '../../utils/dashboard.types';
 
 
-export default function DashboardsPage() {
+export default function LoadDashboards() {
     const [title] = React.useState("Dashboards")
 
     const [dashboards, setDashboards] = React.useState(null)

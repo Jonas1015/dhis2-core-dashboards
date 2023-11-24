@@ -29,7 +29,7 @@ and the output should be
 ```
  PASS  src/components/DashboardItems/__tests__/DashboardsList.test.js
  PASS  src/components/DashboardsList/__tests__/DashboardsList.test.js
- PASS  src/components/DashboardsPage/__tests__/DashboardsPage.test.js
+ PASS  src/components/LoadDashboards/__tests__/LoadDashboards.test.js
 
 Test Suites: 3 passed, 3 total
 Tests:       3 passed, 3 total

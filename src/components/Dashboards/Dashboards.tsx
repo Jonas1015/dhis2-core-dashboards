@@ -1,4 +1,4 @@
-import './DashboardsList.css'
+import './Dashboards.css'
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -18,7 +18,7 @@ import { get_dashboard_items } from '../../services/dashboards.services';
 import { DashboardItem } from '../../utils/dashboard.types';
 import { Dashboard } from '../../utils/dashboard.types';
 
-function DashboardsList(props: { dashboards: Dashboard[], title: string}) {
+function Dashboards(props: { dashboards: Dashboard[], title: string}) {
   
   const [expanded, setExpanded] = React.useState(props?.dashboards[0]);
   const [openedDashboard, setOpenedDashboard] = React.useState({} as Dashboard);
@@ -135,4 +135,4 @@ function DashboardsList(props: { dashboards: Dashboard[], title: string}) {
   )
 }
 
-export default DashboardsList
+export default Dashboards

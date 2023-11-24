@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import DashboardsList from '../DashboardsList'; 
+import DashboardsList from '../Dashboards'; 
 import { Dashboard } from '../../../utils/dashboard.types';
 import React from 'react';
 import { MOCK_DASHBOARDS } from '../../../utils/mock_tests';

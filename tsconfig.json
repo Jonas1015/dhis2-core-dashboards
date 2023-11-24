@@ -12,9 +12,9 @@
     "noEmit": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
-    "baseUrl": "./src", // Set this to the base directory of your source files
+    "baseUrl": "./src",
     "paths": {
-      "*": ["types/*"] // Add paths for module resolution if necessary
+      "*": ["types/*"]
     },
     "lib": ["dom", "esnext"]
   },
