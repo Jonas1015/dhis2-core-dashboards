@@ -1,17 +1,20 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import DashboardsList from '../DashboardsList'; 
+import { Dashboard } from '../../../Interfaces/dashboard.interfaces';
+import React from 'react';
 
-const mockDashboards = [
+const mockDashboards: Dashboard[] = [
             {
                 displayName: "Dashboard 1",
-                id: "xlsL67aszm8"
+                id: "xlsL67aszm8",
+                starred: false
             }
         ];
 
-const mockTitle = 'Test Dashboards';
+const mockTitle: string = 'Test Dashboards';
 
 
-describe('DashboardsList Component', (mockDashboards, mockTitle) => {
+describe('DashboardsList Component', () => {
     it('Should show title and see name of every dashboard', async () => {
         render(<DashboardsList dashboards={mockDashboards} title={mockTitle}/>);
         const titleElement = screen.getByText(/Test Dashboards/i);

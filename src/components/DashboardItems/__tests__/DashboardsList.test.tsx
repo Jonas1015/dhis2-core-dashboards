@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import DashboardItems from '../DashboardItems'; 
+import { Dashboard, DashboardItem, Other } from '../../../Interfaces/dashboard.interfaces';
+import React from 'react';
 
 it('Renders with provided props', async () => {
-    const dashboard = {
+    const dashboard: Dashboard = {
         dashboardItems: [
             {
                 visualization: {
@@ -25,12 +27,16 @@ it('Renders with provided props', async () => {
                 type: "MAP",
                 id: "shji8sL67aszm8"
             },
-        ]
+        ],
+        displayName: '',
+        id: '',
+        starred: false
     };
 
     render(<DashboardItems dashboardDetails={dashboard} />);
     dashboard?.dashboardItems?.map((item) => {
-        const titleElement = screen.getByText(item[item?.type?.toLowerCase()]?.name || item[item?.type?.toLowerCase()]);
-        expect(titleElement).toBeInTheDocument;
+        const key = item?.type?.toLowerCase() as keyof DashboardItem
+        const titleElement = screen.getByText((item[key] as Other)?.name || item[key] as string);
+        // expect(titleElement).toBeInTheDocument;
     })
 });

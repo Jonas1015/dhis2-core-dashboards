@@ -1,5 +1,6 @@
-import './App.css';
+import React from 'react';
 import DashboardsPage from './components/DashboardsPage/DashboardsPage';
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {

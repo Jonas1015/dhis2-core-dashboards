@@ -2,6 +2,7 @@ import './DashboardsPage.css'
 import * as React from 'react';
 import DashboardsList from '../DashboardsList/DashboardsList';
 import { get_dashboards } from '../../services/dashboards.services';
+import { Dashboard } from '../../Interfaces/dashboard.interfaces';
 
 
 export default function DashboardsPage() {
@@ -13,13 +14,14 @@ export default function DashboardsPage() {
     React.useEffect(() => {
         setLoadingDashboards(true)
         get_dashboards()
-        .then(result => {
-            let starredDashboards = JSON.parse(localStorage.getItem("starredDashboards")) || {}
+        .then((result: any) => {
+            let starredDashboards = JSON.parse(localStorage.getItem("starredDashboards") || '{}')
             const dashboardsIds = Object.keys(starredDashboards)
-            result?.dashboards?.forEach((dashboard) => {
+            result?.dashboards?.forEach((dashboard: Dashboard) => {
+                const id = dashboard.id as keyof Dashboard
                 starredDashboards = {
                     ...starredDashboards,
-                    [dashboard?.id]: dashboardsIds?.includes(dashboard?.id) ? starredDashboards[dashboard?.id] : dashboard?.starred
+                    [dashboard?.id]: dashboardsIds?.includes(id) ? starredDashboards[id] : dashboard?.starred
                 }
             })
             localStorage.setItem('starredDashboards', JSON.stringify(starredDashboards))

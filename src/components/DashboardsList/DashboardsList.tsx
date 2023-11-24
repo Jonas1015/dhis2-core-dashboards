@@ -11,19 +11,21 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import DashboardItems from '../DashboardItems/DashboardItems';
 
 import { get_dashboard_items } from '../../services/dashboards.services';
+import { DashboardItem } from '../../Interfaces/dashboard.interfaces';
+import { Dashboard } from '../../Interfaces/dashboard.interfaces';
 
-function DashboardsList({ dashboards, title }) {
+function DashboardsList(props: { dashboards: Dashboard[], title: string}) {
   
-  const [expanded, setExpanded] = React.useState(dashboards[0]);
-  const [openedDashboard, setOpenedDashboard] = React.useState(null);
+  const [expanded, setExpanded] = React.useState(props?.dashboards[0]);
+  const [openedDashboard, setOpenedDashboard] = React.useState({} as Dashboard);
   const [loadingDashboardItems, setLoadingDashboardItems] = React.useState(true);
 
-  const handleExansion = (dashboard) => (event, isExpanded) => {
-    setExpanded(isExpanded ? dashboard : false);
+  const handleExansion = (dashboard: Dashboard) => (event: any, isExpanded: boolean) => {
+    setExpanded(isExpanded ? dashboard : props?.dashboards[0]);
     setOpenedDashboard(dashboard)
   };
 
@@ -35,14 +37,14 @@ function DashboardsList({ dashboards, title }) {
 
   const [filter, setFilter] = React.useState(localStorage.getItem('filter') || '');
 
-  const handleFilter = (event) => {
+  const handleFilter = (event: SelectChangeEvent<string>) => {
       setFilter(event.target.value);
       localStorage.setItem('filter', event.target.value);
   };
 
-  const [starredDashboards, setStarredDashboards] = React.useState(JSON.parse(localStorage.getItem('starredDashboards')) || "{}")
-  const handleStar = (dashboard) => {
-    let starredDashboards = JSON.parse(localStorage.getItem('starredDashboards'));
+  const [starredDashboards, setStarredDashboards] = React.useState(JSON.parse(localStorage.getItem('starredDashboards') || "{}"))
+  const handleStar = (dashboard: Dashboard) => {
+    let starredDashboards = JSON.parse(localStorage.getItem('starredDashboards') || "{}");
     starredDashboards = {
         ...starredDashboards,
         [dashboard?.id]: !starredDashboards[dashboard?.id] ? true : false
@@ -55,11 +57,11 @@ function DashboardsList({ dashboards, title }) {
         if(expanded){
             setLoadingDashboardItems(true)
             get_dashboard_items(expanded?.id)
-            .then(result => {    
+            .then((result: any) => {    
                 setOpenedDashboard(filter ?{
                   ...result,
                   dashboardItems: [
-                    ...result?.dashboardItems?.filter((dashboardItem) => dashboardItem?.type === filter)
+                    ...result?.dashboardItems?.filter((dashboardItem: DashboardItem) => dashboardItem?.type === filter)
                   ]
                 } : result );
                 setLoadingDashboardItems(false)
@@ -74,7 +76,7 @@ function DashboardsList({ dashboards, title }) {
     <div className='container'>
         <div className="row dashboards-header mt-5 pt-5">
           <div className="col-md-8 col-lg-9 col-sm-6 col-xm-4 mt-3 title">
-              {title}
+              {props.title}
           </div>
           <div className="col-md-4 col-lg-3 col-sm-6 col-xm-8 mt-3 filter-field">
               <Box>
@@ -86,7 +88,7 @@ function DashboardsList({ dashboards, title }) {
                           data-testId="filter"
                           value={filter}
                           label="Filter"
-                          onChange={handleFilter}
+                          onChange={(event: SelectChangeEvent<string>) => handleFilter(event)}
                       >
                         <MenuItem value=''>ALL</MenuItem>
                       {filters?.map((filter) => (
@@ -98,7 +100,7 @@ function DashboardsList({ dashboards, title }) {
           </div>
         </div>
         <div className="row mt-3">
-          {dashboards?.map((dashboard) => (
+          {props?.dashboards?.map((dashboard: Dashboard) => (
             <Accordion expanded={expanded?.id === dashboard?.id} onChange={handleExansion(dashboard)} key={dashboard.id}>
                 <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
