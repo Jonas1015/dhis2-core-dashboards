@@ -9,7 +9,7 @@ import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
 import StackedBarChartRoundedIcon from '@mui/icons-material/StackedBarChartRounded';
 import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
-import { Dashboard, DashboardItem, Other } from '../../Interfaces/dashboard.interfaces';
+import { Dashboard, DashboardItem, Other } from '../../utils/dashboard.types';
 
 function DashboardItems(props: { dashboardDetails: Dashboard }){
 

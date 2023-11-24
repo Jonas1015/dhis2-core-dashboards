@@ -2,7 +2,7 @@ import './DashboardsPage.css'
 import * as React from 'react';
 import DashboardsList from '../DashboardsList/DashboardsList';
 import { get_dashboards } from '../../services/dashboards.services';
-import { Dashboard } from '../../Interfaces/dashboard.interfaces';
+import { Dashboard } from '../../utils/dashboard.types';
 
 
 export default function DashboardsPage() {

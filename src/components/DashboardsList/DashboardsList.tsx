@@ -15,8 +15,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import DashboardItems from '../DashboardItems/DashboardItems';
 
 import { get_dashboard_items } from '../../services/dashboards.services';
-import { DashboardItem } from '../../Interfaces/dashboard.interfaces';
-import { Dashboard } from '../../Interfaces/dashboard.interfaces';
+import { DashboardItem } from '../../utils/dashboard.types';
+import { Dashboard } from '../../utils/dashboard.types';
 
 function DashboardsList(props: { dashboards: Dashboard[], title: string}) {
   
@@ -85,7 +85,7 @@ function DashboardsList(props: { dashboards: Dashboard[], title: string}) {
                       <Select
                           labelId="select-filter"
                           id="select-filter"
-                          data-testId="filter"
+                          data-testid="filter"
                           value={filter}
                           label="Filter"
                           onChange={(event: SelectChangeEvent<string>) => handleFilter(event)}

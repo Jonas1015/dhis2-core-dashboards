@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import DashboardItems from '../DashboardItems'; 
-import { Dashboard, DashboardItem, Other } from '../../../Interfaces/dashboard.interfaces';
+import { Dashboard, DashboardItem, Other } from '../../../utils/dashboard.types';
 import React from 'react';
 
 it('Renders with provided props', async () => {
@@ -37,6 +37,6 @@ it('Renders with provided props', async () => {
     dashboard?.dashboardItems?.map((item) => {
         const key = item?.type?.toLowerCase() as keyof DashboardItem
         const titleElement = screen.getByText((item[key] as Other)?.name || item[key] as string);
-        // expect(titleElement).toBeInTheDocument;
+        expect(titleElement).toBeInTheDocument;
     })
 });

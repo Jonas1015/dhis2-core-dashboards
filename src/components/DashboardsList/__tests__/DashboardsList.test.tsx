@@ -1,15 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import DashboardsList from '../DashboardsList'; 
-import { Dashboard } from '../../../Interfaces/dashboard.interfaces';
+import { Dashboard } from '../../../utils/dashboard.types';
 import React from 'react';
+import { MOCK_DASHBOARDS } from '../../../utils/mock_tests';
 
-const mockDashboards: Dashboard[] = [
-            {
-                displayName: "Dashboard 1",
-                id: "xlsL67aszm8",
-                starred: false
-            }
-        ];
+const mockDashboards: Dashboard[] = MOCK_DASHBOARDS
 
 const mockTitle: string = 'Test Dashboards';
 
