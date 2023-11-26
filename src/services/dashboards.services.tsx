@@ -5,7 +5,7 @@ export function get_dashboards() {
     fetch(`${BASE_URL}/dashboards.json`)
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Error occured. Please check your connection or reload the page.');
         }
         return response.json();
       })
@@ -23,7 +23,7 @@ export function get_dashboard_items(id: string) {
     fetch(`${BASE_URL}/${id}.json`)
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Error occured. Please check your connection or reload the page.');
         }
         return response.json();
       })

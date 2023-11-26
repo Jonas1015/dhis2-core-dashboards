@@ -1,4 +1,4 @@
-import './Dashboards.css'
+import './ListDashboards.css'
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -18,7 +18,7 @@ import { get_dashboard_items } from '../../services/dashboards.services';
 import { DashboardItem } from '../../utils/dashboard.types';
 import { Dashboard } from '../../utils/dashboard.types';
 
-function Dashboards(props: { dashboards: Dashboard[], title: string}) {
+function ListDashboards(props: { dashboards: Dashboard[], title: string}) {
   
   const [expanded, setExpanded] = React.useState(props?.dashboards[0]);
   const [openedDashboard, setOpenedDashboard] = React.useState({} as Dashboard);
@@ -36,6 +36,7 @@ function Dashboards(props: { dashboards: Dashboard[], title: string}) {
     ])
 
   const [filter, setFilter] = React.useState(localStorage.getItem('filter') || '');
+  const [error, setError] = React.useState("")
 
   const handleFilter = (event: SelectChangeEvent<string>) => {
       setFilter(event.target.value);
@@ -67,7 +68,8 @@ function Dashboards(props: { dashboards: Dashboard[], title: string}) {
                 setLoadingDashboardItems(false)
             })
             .catch(error => {
-                console.error(error);
+                setError(error)
+                setLoadingDashboardItems(false)
             })
         }
     }, [expanded, filter])
@@ -126,7 +128,8 @@ function Dashboards(props: { dashboards: Dashboard[], title: string}) {
                 </AccordionSummary>
                 <AccordionDetails>
                         {loadingDashboardItems && <p className="text-center">loading dashboard items ...</p>}
-                        {!loadingDashboardItems && <DashboardItems dashboardDetails={openedDashboard} />}
+                        {(!loadingDashboardItems && !error) && <DashboardItems dashboardDetails={openedDashboard} />}
+                        {(!loadingDashboardItems && error) && <p className=" mt-5 text-center text-danger">Error occured while loading dashboard items.</p>}
                 </AccordionDetails>
             </Accordion>
           ))}
@@ -135,4 +138,4 @@ function Dashboards(props: { dashboards: Dashboard[], title: string}) {
   )
 }
 
-export default Dashboards
+export default ListDashboards

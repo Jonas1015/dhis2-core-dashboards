@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import DashboardsList from '../Dashboards'; 
+import DashboardsList from '../ListDashboards'; 
 import { Dashboard } from '../../../utils/dashboard.types';
 import React from 'react';
 import { MOCK_DASHBOARDS } from '../../../__mocks__/fetch';
@@ -9,7 +9,7 @@ const mockDashboards: Dashboard[] = MOCK_DASHBOARDS
 const mockTitle: string = 'Test Dashboards';
 
 
-describe('Dashboards Component', () => {
+describe('ListDashboards Component', () => {
     it('Should show title and see name of every dashboard', async () => {
         render(<DashboardsList dashboards={mockDashboards} title={mockTitle}/>);
         const titleElement = screen.getByText(/Test Dashboards/i);

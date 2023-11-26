@@ -1,6 +1,6 @@
 import './LoadDashboards.css'
 import * as React from 'react';
-import DashboardsList from '../Dashboards/Dashboards';
+import ListDashboards from '../ListDashboards/ListDashboards';
 import { get_dashboards } from '../../services/dashboards.services';
 import { Dashboard } from '../../utils/dashboard.types';
 
@@ -9,10 +9,12 @@ export default function LoadDashboards() {
     const [title] = React.useState("Dashboards")
 
     const [dashboards, setDashboards] = React.useState(null)
+    const [error, setError] = React.useState("")
     const [loadingDashboards, setLoadingDashboards] = React.useState(true)
 
     React.useEffect(() => {
         setLoadingDashboards(true)
+        setError("")
         get_dashboards()
         .then((result: any) => {
             let starredDashboards = JSON.parse(localStorage.getItem("starredDashboards") || '{}')
@@ -28,8 +30,9 @@ export default function LoadDashboards() {
             setDashboards(result?.dashboards);
             setLoadingDashboards(false)
         })
-        .catch(error => {
-            console.error(error);
+        .catch((error: string) => {
+            setError(error)
+            setLoadingDashboards(false)
         })
     }, [])
 
@@ -37,7 +40,8 @@ export default function LoadDashboards() {
         <div className='container'>
             <div className="row mt-3">
                 {loadingDashboards && <h4 className=" mt-5 text-center">Loading Dashboards ...</h4>    }
-                {dashboards && <DashboardsList dashboards={dashboards} title={title} />}
+                {dashboards && <ListDashboards dashboards={dashboards} title={title} />}
+                {error && <h4 className=" mt-5 text-center text-danger">Error occured!. Please check your connection or reload the page.</h4>}
             </div>
             
         </div>
