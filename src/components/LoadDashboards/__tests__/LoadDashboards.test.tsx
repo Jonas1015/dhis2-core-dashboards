@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import LoadDashboards from '../LoadDashboards'; 
-import { MOCK_DASHBOARDS, dashboardAPI } from '../../../utils/mock_tests';
+import { MOCK_DASHBOARDS, dashboardAPI } from '../../../__mocks__/fetch';
 
 describe('Load DashBoards ', () => {
-    it('Should show the loading message if at first the component worked', async () => {
-        render(<LoadDashboards />);
-        const titleElement = screen.getByText(/Loading Dashboards .../i)
-        expect(titleElement).toBeInTheDocument;
-    });
+  it('Should show the loading message if at first the component worked', async () => {
+      render(<LoadDashboards />);
+      const titleElement = screen.getByText(/Loading Dashboards .../i)
+      expect(titleElement).toBeInTheDocument;
+  });
 
   it('should return dashboards', () => {
     const response = new Response(undefined, {
